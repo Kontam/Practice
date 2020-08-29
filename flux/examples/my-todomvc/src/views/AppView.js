@@ -50,6 +50,11 @@ function Main(props) {
           </li>
         ))}
       </ul>
+      <input type="text" name="draft" value={props.draft} onChange={(e) => {props.onChangeDraft(e.target.value)}}/>
+      <input type="button" name="add" value="add" onClick={(e) => {
+      props.onAddTodo(props.draft)
+      props.onChangeDraft("")
+      }} />
     </section>
   );
 }
