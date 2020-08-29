@@ -1,6 +1,7 @@
 import AppView from '../views/AppView';
 import { Container } from 'flux/utils';
 import TodoStore from '../data/TodoStore';
+import TodoActions from '../data/TodoActions';
 
 function getStores() {
   return [
@@ -8,9 +9,12 @@ function getStores() {
   ];
 }
 
+// ここで返された値がpropsになる？
 function getState() {
   return {
     todos: TodoStore.getState(),
+    onDeleteTodo: TodoActions.deleteTodo,
+    onToggleTodo: TodoActions.toggleTodo,
   };
 }
 
