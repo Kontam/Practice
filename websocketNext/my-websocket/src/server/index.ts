@@ -11,9 +11,9 @@ app.prepare().then(() => {
   const server = express();
   const htServer = http.createServer(server);
 
-   server.get('/test', (req, res) => {
-    res.send('hello!!');
-   })
+  server.get('/test', (req, res) => {
+   res.send('hello!!');
+  })
 
   server.get('*', (req, res) => {
     handle(req, res);
@@ -22,6 +22,14 @@ app.prepare().then(() => {
   const io = socket(htServer);
   io.on('connection', (socket) => {
     console.log('a user connected');
+
+    socket.emit('ferret', 'tobi', (data) => {
+      console.log(data);
+    });
+
+    socket.on('hello', (name) => {
+      console.log("hello", name);
+    });
   });
 
   htServer.listen(3000, () => {
