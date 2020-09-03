@@ -1,7 +1,7 @@
 import next from 'next';
 import express from 'express';
 import http from 'http';
-import socket from 'socket.io'
+import { Connection } from './modules/connecter.js';
 
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
@@ -10,6 +10,8 @@ const handle = app.getRequestHandler()
 app.prepare().then(() => {
   const server = express();
   const htServer = http.createServer(server);
+  const connector = new Connection(htServer);
+  connector.connect();
 
   server.get('/test', (req, res) => {
    res.send('hello!!');
@@ -19,20 +21,8 @@ app.prepare().then(() => {
     handle(req, res);
   })
 
-  const io = socket(htServer);
-  io.on('connection', (socket) => {
-    console.log('a user connected');
-
-    socket.emit('ferret', 'tobi', (data) => {
-      console.log(data);
-    });
-
-    socket.on('hello', (name) => {
-      console.log("hello", name);
-    });
-  });
-
   htServer.listen(3000, () => {
     console.log('> Ready on http://localhost:3000')
   })
 })
+
