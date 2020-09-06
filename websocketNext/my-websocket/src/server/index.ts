@@ -9,6 +9,7 @@ const handle = app.getRequestHandler()
 
 app.prepare().then(() => {
   const server = express();
+  console.log("express", typeof server);
   const htServer = http.createServer(server);
   const connector = new Connection(htServer);
   connector.connect();

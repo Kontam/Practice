@@ -3,8 +3,10 @@ import { useState } from 'react';
 import io from 'socket.io-client';
 
 const Home: NextPage = () => {
-  const socket = io();
-  const onClick = (word: string) => {socket.emit('hello', word)}
+  const socket = io('http://localhost:3000', {query: 'name=kontam'});
+
+  const onClick = (word: string) => {
+  }
   socket.on('ferret', (name, fn) => {
     fn('woot');
   });

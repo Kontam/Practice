@@ -13,8 +13,11 @@ export class Connection {
         console.log(data);
       });
 
+      socket.join('room');
+
       socket.on('hello', (name) => {
         console.log(name);
+        console.log(socket.handshake.query);
       });
     });
   } 
