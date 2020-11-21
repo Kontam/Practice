@@ -1,4 +1,8 @@
 
 export function main() {
-  window.alert('hello');
+  window.alert('main');
 }
+
+(function x(){
+  main();
+})();
