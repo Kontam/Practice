@@ -1,11 +1,11 @@
 import { myStore } from './redux/store';
-import { addTodo } from './redux/modules/todos';
+import {renderTodoList} from './view/TodoList';
+import {hydrateTodoForm} from './view/TodoForm';
 
 (function main(){
-  myStore.dispatch(addTodo({
-    id: '1',
-    name: 'name1',
-    done: false,
-  }));
-  console.log(myStore.getState());
+  myStore.subscribe(() => {
+    const { todos } = myStore.getState();
+    renderTodoList(todos);
+  })
+  hydrateTodoForm(myStore.dispatch);
 })();
