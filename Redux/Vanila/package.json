@@ -4,12 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npx tsc && bash shell/build.sh"
+    "build": "parcel build src/html/index.html",
+    "dev": "parcel src/html/index.html",
+    "ts": "npx tsc && bash shell/build.sh"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "parcel": "^1.12.4",
     "ts-node": "^9.0.0",
     "typescript": "^4.1.2"
+  },
+  "dependencies": {
+    "redux": "^4.0.5"
   }
 }
