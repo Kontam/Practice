@@ -1,8 +1,11 @@
-import { createStore } from 'redux';
-import { testFunc } from './util';
+import { myStore } from './redux/store';
+import { addTodo } from './redux/modules/todos';
 
 (function main(){
-  const store = createStore(() => {});
-  console.log(store);
-  testFunc();
+  myStore.dispatch(addTodo({
+    id: '1',
+    name: 'name1',
+    done: false,
+  }));
+  console.log(myStore.getState());
 })();

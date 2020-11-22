@@ -11,9 +11,10 @@ export const addTodo = (todo: Todo) => ({type: ADD_TODO, payload: todo});
 
 export const todos: Reducer<Todos> = (state, action) => {
   if (!state) state = INITIAL_STATE;
+  console.log(action);
   switch (action.type) {
     case ADD_TODO:
-      return [...state, ...action.payload];
+      return [...state, action.payload];
     default:
       return state;
   }
