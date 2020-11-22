@@ -1,8 +1,9 @@
+import { createStore } from 'redux';
+import { testFunc } from './util';
 
-export function main() {
-  window.alert('main');
-}
 
-(function x(){
-  main();
+(function main(){
+  testFunc();
+  const a = createStore((s, _) => s);
+  console.log(a);
 })();
