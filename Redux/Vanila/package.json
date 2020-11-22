@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "fastify": "^3.8.0",
+    "fastify-static": "^3.3.0",
     "redux": "^4.0.5"
   }
 }
