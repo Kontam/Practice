@@ -11,7 +11,7 @@ export const hydrateTodoForm = (dispatch: Dispatch) => {
       id: '1',
       name: todoName,
       done: false,
-    });
+    }));
     console.log('submit', event); 
   })
   console.log('hydete', targetDOM);

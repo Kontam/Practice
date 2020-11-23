@@ -2,7 +2,6 @@
   "name": "vanila",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "build": "parcel build src/html/index.html",
     "dev": "parcel src/html/index.html",

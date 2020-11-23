@@ -4,7 +4,7 @@ export const renderTodoList = (todos: Todos) => {
   const targetDOM = document.getElementById("todoList");
   const currentList = document.querySelector('[data-js="List"]');
   if (currentList) {
-    targetDOM.removeChild(currentList);
+    targetDOM?.removeChild(currentList);
   }
   if (!targetDOM) {
     console.error('targetDOM is not found');
@@ -29,4 +29,28 @@ export const createTodoListContainer = (todos: Todos) => {
   todoItemElements.forEach((element) => listElement.appendChild(element));
   containerElement.appendChild(listElement);
   return containerElement;
+}
+
+export class TodoListContainer extends HTMLElement {
+  constructor() {
+    super();
+    const todos = [1,2,3];
+    const shadow = this.attachShadow({mode: 'open'});
+    const containerElement = document.createElement("div");
+    containerElement.setAttribute('data-js', 'List');
+    const listElement = document.createElement("ul");
+    
+    const todoItemElements = todos.map(() => {
+      const item = document.createElement("li");
+      const label = document.createElement("p");
+      label.textContent = 'content';
+      item.appendChild(label);
+      return item;
+    });
+
+    todoItemElements.forEach((element) => listElement.appendChild(element));
+    containerElement.appendChild(listElement);
+
+    shadow.appendChild(containerElement);
+  }
 }
