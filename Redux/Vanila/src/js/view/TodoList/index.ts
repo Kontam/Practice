@@ -2,7 +2,7 @@ import { Todos } from "../../redux/types";
 
 export const renderTodoList = (todos: Todos) => {
   const targetDOM = document.getElementById("todoList");
-  const currentList = document.querySelector('[data-js="List"]');
+  const currentList = document.querySelector('todo-list');
   if (currentList) {
     targetDOM?.removeChild(currentList);
   }
