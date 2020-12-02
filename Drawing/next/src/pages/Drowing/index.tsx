@@ -1,10 +1,13 @@
 import React, { useRef, useEffect } from 'react';
-import { createCanvas } from '../../modules/canvas';
+import { DrawingCanvas } from '../../modules/canvas';
 
 const Drawing = () => {
   const myRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    myRef.current.appendChild(createCanvas().view)
+    const canvas = new DrawingCanvas();
+    myRef.current.appendChild(canvas.canvas.view)
+    canvas.startDraw();
+    canvas.endDraw();
   }, []);
 
   return (
