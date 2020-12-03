@@ -5,9 +5,14 @@ const Drawing = () => {
   const myRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const canvas = new DrawingCanvas();
+    console.log('useEffect', canvas);
     myRef.current.appendChild(canvas.canvas.view)
-    canvas.startDraw();
-    canvas.endDraw();
+    canvas.canvas.view.addEventListener('mousedown', () => { canvas.startDraw() });
+    canvas.canvas.view.addEventListener('mouseup', () => { canvas.endDraw() });
+    canvas.canvas.view.addEventListener('mouseout', () => { canvas.endDraw() });
+    canvas.canvas.view.addEventListener('mousemove', (e) => {
+      canvas.draw(e.layerX, e.layerY)
+    });
   }, []);
 
   return (
