@@ -41,6 +41,20 @@ function measure(ctx) {
   console.log(text);
 }
 
+function transitionRotate(ctx) {
+  ctx.save();
+  ctx.fillStyle = '#0095DD';
+  ctx.fillRect(30,30,50,50);
+  ctx.rotate((Math.PI / 180) * 25);
+
+  ctx.fillStyle = '#4D4E53';
+  ctx.fillRect(40,40,50,50);
+
+  ctx.restore();
+  ctx.fillStyle = '#4D4E53';
+  ctx.fillRect(70,70,50,50);
+}
+
 
 function onLoad() {
   const CANVAS_ID = 'mycanvas';
@@ -54,7 +68,7 @@ function onLoad() {
   drawFace(ctx);
   drawText(ctx);
   measure(ctx);
-
+  transitionRotate(ctx);
 }
 
 
