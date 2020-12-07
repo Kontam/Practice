@@ -65,10 +65,20 @@ function onLoad() {
     return;
   }
   const ctx = canvas.getContext('2d');
-  drawFace(ctx);
-  drawText(ctx);
-  measure(ctx);
-  transitionRotate(ctx);
+  animate(ctx);
+}
+
+function animate() {
+  const time = new Date();
+  const CANVAS_ID = 'mycanvas';
+  console.log(time.getMilliseconds() % 100);
+  const ctx = document.getElementById(CANVAS_ID).getContext('2d');
+  ctx.clearRect(0, 0, 500, 500); // clear canvas
+  ctx.fillStyle = 'rgb(0,0,0)';
+  ctx.fillRect(0, 0, 40, time.getMilliseconds() % 500);
+  ctx.fillStyle = 'rgb(0,120,0)';
+  ctx.fillRect(40, 0, 40, (time.getMilliseconds() + 100) % 500);
+  window.requestAnimationFrame(animate);
 }
 
 
