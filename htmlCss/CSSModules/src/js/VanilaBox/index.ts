@@ -1,3 +1,6 @@
+//@ts-ignore
+import styles from './style.css';
+
 export class VanilaBox {
   root: HTMLElement | null = null
 
@@ -12,6 +15,7 @@ export class VanilaBox {
     message.innerText = 'VanilaBox';
     dom.className = 'vanilaBox';
     dom.appendChild(message);
+    console.log("style", styles);
 
     while (this.root.firstChild) this.root.removeChild
     this.root.appendChild(dom);
