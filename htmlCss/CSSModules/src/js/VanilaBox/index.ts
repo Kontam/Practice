@@ -13,7 +13,7 @@ export class VanilaBox {
     const dom = document.createElement('div');  
     const message = document.createElement('p');
     message.innerText = 'VanilaBox';
-    dom.className = 'vanilaBox';
+    dom.className = styles.vanilaBox;
     dom.appendChild(message);
     console.log("style", styles);
 
