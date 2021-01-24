@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './style.module.css';
 
 export type Option = {
   choiceName: string;
@@ -18,11 +19,11 @@ type Props = {
 
 const ListBody: React.FC<Props> = ({groups}) => (
   <div>
-    <ul>
+    <ul className={styles.list}>
       {groups.map(group => (
-        <li>
-          <h2>{group.groupName}</h2>
-          <ul>
+        <li className={styles.item}>
+          <h2 className={styles.groupName}>{group.groupName}</h2>
+          <ul className={styles.optionList}>
             {group.choiceOptions.map(item => (
               <li>
                 <p>{item.choiceName}</p>

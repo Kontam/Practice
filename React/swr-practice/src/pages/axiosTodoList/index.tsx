@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import axios from '../../modules/axiosConfig';
 import ListBody, {Group} from '../../components/ListBody';
+import Navigation from '../../components/Navigation';
+import Heading from '../../components/Heading';
 
-export const TodoList: React.FC = () => {
+export const AxiosTodoList: React.FC = () => {
   const [groups, setGroups] = useState<Group[]>([]);
   useEffect(() => {
     axios
@@ -15,10 +17,11 @@ export const TodoList: React.FC = () => {
 
   return (
     <div>
-      TodoList
+      <Navigation />
+      <Heading text="AxiosTodoList" />
       <ListBody groups={groups} />
     </div>
   );
 };
 
-export default TodoList;
+export default AxiosTodoList;

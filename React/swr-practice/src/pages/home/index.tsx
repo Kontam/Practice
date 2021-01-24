@@ -1,12 +1,11 @@
 import React from 'react';
-import Link from 'next/link';
+import Heading from '../../components/Heading';
+import Navigation from '../../components/Navigation';
 
 const Home: React.FC = () => (
   <div>
-    <h1>This is Home page</h1>
-    <Link href="axiosTodoList">
-      <a>axiosTodoList</a>
-    </Link>
+    <Navigation />
+    <Heading text="Home Page" />
   </div>
 );
 

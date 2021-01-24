@@ -1,0 +1,17 @@
+
+.list {
+  display: flex;
+}
+
+.item {
+  min-width: 150px;
+  margin-top: 10px;
+}
+
+.groupName {
+  font-size: 24px;
+}
+
+.optionList {
+  margin-top: 5px;
+}
