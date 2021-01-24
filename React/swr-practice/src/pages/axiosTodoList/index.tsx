@@ -1,19 +1,24 @@
-import React, {useEffect} from 'react';
-import {appConst} from '../../modules/appConst';
-import axios, {apiKey} from '../../modules/axiosConfig';
+import React, {useEffect, useState} from 'react';
+import axios from '../../modules/axiosConfig';
+import ListBody, {Group} from '../../components/ListBody';
 
 export const TodoList: React.FC = () => {
-  console.log(appConst);
-useEffect(() => {
-  axios
-    .get('/longoAPI')
-    .then(result => {
-      console.log('axios', result);
-    })
-    .catch(e => console.error(e));
-  }, [])
+  const [groups, setGroups] = useState<Group[]>([]);
+  useEffect(() => {
+    axios
+      .get('/choiceGroupAPI')
+      .then(result => {
+        setGroups(result.data);
+      })
+      .catch(e => console.error(e));
+    }, [])
 
-  return <div>TodoList</div>;
+  return (
+    <div>
+      TodoList
+      <ListBody groups={groups} />
+    </div>
+  );
 };
 
 export default TodoList;
