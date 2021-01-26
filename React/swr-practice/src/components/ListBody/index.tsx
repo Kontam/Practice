@@ -1,35 +1,17 @@
 import React from 'react';
+import { Todo } from '../../server/todoController';
 import styles from './style.module.css';
 
-export type Option = {
-  choiceName: string;
-  choiceEnabled: boolean;
-  choiceId: string;
-};
-
-export type Group = {
-  groupId: string;
-  groupName: string;
-  choiceOptions: Option[];
-};
-
 type Props = {
-  groups: Group[];
+  todos: Todo[];
 };
 
-const ListBody: React.FC<Props> = ({groups}) => (
+const ListBody: React.FC<Props> = ({todos}) => (
   <div>
     <ul className={styles.list}>
-      {groups.map(group => (
+      {todos.map(group => (
         <li className={styles.item}>
-          <h2 className={styles.groupName}>{group.groupName}</h2>
-          <ul className={styles.optionList}>
-            {group.choiceOptions.map(item => (
-              <li>
-                <p>{item.choiceName}</p>
-              </li>
-            ))}
-          </ul>
+          <h2 className={styles.groupName}>{group.name}</h2>
         </li>
       ))}
     </ul>

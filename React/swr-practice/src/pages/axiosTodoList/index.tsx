@@ -1,16 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import axios from '../../modules/axiosConfig';
-import ListBody, {Group} from '../../components/ListBody';
+import ListBody from '../../components/ListBody';
 import Navigation from '../../components/Navigation';
 import Heading from '../../components/Heading';
+import {Todo} from '../../server/todoController';
 
 export const AxiosTodoList: React.FC = () => {
-  const [groups, setGroups] = useState<Group[]>([]);
+  const [todos, setTodos] = useState<Todo[]>([]);
   useEffect(() => {
     axios
-      .get('/choiceGroupAPI')
+      .get('/todo')
       .then(result => {
-        setGroups(result.data);
+        setTodos(result.data);
       })
       .catch(e => console.error(e));
     }, [])
@@ -19,7 +20,7 @@ export const AxiosTodoList: React.FC = () => {
     <div>
       <Navigation />
       <Heading text="AxiosTodoList" />
-      <ListBody groups={groups} />
+      <ListBody todos={todos} />
     </div>
   );
 };
