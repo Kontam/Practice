@@ -4,6 +4,7 @@ import ListBody from '../../components/ListBody';
 import Navigation from '../../components/Navigation';
 import Heading from '../../components/Heading';
 import {Todo} from '../../server/todoController';
+import TodoForm from '../../components/TodoForm';
 
 export const AxiosTodoList: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -20,6 +21,7 @@ export const AxiosTodoList: React.FC = () => {
     <div>
       <Navigation />
       <Heading text="AxiosTodoList" />
+      <TodoForm />
       <ListBody todos={todos} />
     </div>
   );
