@@ -13,6 +13,7 @@ app.prepare().then(() => {
 
   const todoController = new TodoController(INITIAL_TODOS);
   server.get('/todo', (req, res) => todoController.get(req, res));
+  server.post('/todo', (req, res) => todoController.post(req, res));
 
   server.all('*', (req: Request, res: Response) => {
     return handle(req,res);
