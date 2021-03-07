@@ -1,16 +1,26 @@
-import React from 'react'
+import React from 'react';
 import Radio from '../molecules/Radio';
 import {useFormValues} from './useFormValues';
 
 const UserForm = () => {
-  const { register, handleSubmit, radioOptions } = useFormValues();
+  const {
+    register,
+    handleSubmit,
+    radioOptions,
+    radioName,
+    watchRadio,
+  } = useFormValues();
   return (
     <form action="" onSubmit={handleSubmit}>
       <input type="text" name="name" ref={register}></input>
-      <input type="submit" ref={register}></input>
-      <Radio options={radioOptions} register={register} name={"department"} />
+      <input
+        type="submit"
+        ref={register}
+        disabled={watchRadio ? undefined : true}
+        value="submit"></input>
+      <Radio options={radioOptions} register={register} name={radioName} />
     </form>
   );
 };
 
-export default UserForm
+export default UserForm;

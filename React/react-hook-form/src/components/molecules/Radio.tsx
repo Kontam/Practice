@@ -10,7 +10,7 @@ type Props = {
   register: any,
   options: RadioOption[],
   defaultChecked?: string,
-  name: string;
+  name: string,
 };
 
 const Radio: React.FC<Props> = props => {
@@ -20,7 +20,7 @@ const Radio: React.FC<Props> = props => {
     <ul>
       {props.options.map(option => {
         return (
-          <li key={option.id}>   
+          <li key={option.id}>
             <label>
               <input
                 type="radio"
