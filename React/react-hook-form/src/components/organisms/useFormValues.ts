@@ -2,9 +2,11 @@ import {useForm} from 'react-hook-form';
 import {RadioOption} from '../molecules/Radio';
 
 export const useFormValues = () => {
-  const {register, handleSubmit, watch} = useForm();
+  const {register, handleSubmit, watch, getValues} = useForm();
   const radioName = 'department';
   const watchRadio = watch(radioName);
+  console.log('watch', watch());
+  console.log('getValues', getValues());
   const onSubmit = data => {
     console.log(data, watchRadio);
   }

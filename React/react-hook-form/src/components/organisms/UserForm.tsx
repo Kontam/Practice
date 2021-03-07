@@ -11,14 +11,16 @@ const UserForm = () => {
     watchRadio,
   } = useFormValues();
   return (
-    <form action="" onSubmit={handleSubmit}>
+    <form action="" onSubmit={handleSubmit} aria-label="user">
       <input type="text" name="name" ref={register}></input>
       <input
         type="submit"
+        name="submit"
         ref={register}
         disabled={watchRadio ? undefined : true}
         value="submit"></input>
-      <Radio options={radioOptions} register={register} name={radioName} />
+      <Radio options={radioOptions} register={register} name={radioName}
+     handleOnChange={(e) => console.log('handleChange', e.target.value)} />
     </form>
   );
 };
