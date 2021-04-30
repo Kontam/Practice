@@ -1,11 +1,10 @@
-// Union
-type MyUnion<T, A extends any[]> = {
-  0: T,
-  1: (...arg: A) => any extends (head: infer Head, ...tail: infer Tail) => any ? Union<A | Head, Tail> : never;
-}[A['length'] extends 0 ? 0 : 1]; 
-
 // Complete the `Random` type.
-type Random = unknown;
+type Union<T, U extends any[]> = {
+  0: T,
+  1: ((...args: U) => any) extends (h: infer Head, ...args: infer Tail) => any ? Union<T | Head, Tail> : never;
+}[U["length"] extends 0 ? 0 : 1];
+
+type Random = <T, U extends any[]>(head: T, ...args: U) => Union<T,U>;
 
 declare const random: Random;
 
