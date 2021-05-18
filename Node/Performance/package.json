@@ -9,6 +9,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "lighthouse": "^7.4.0"
+    "@lhci/cli": "^0.7.2",
+    "child_process": "^1.0.2",
+    "lighthouse": "^7.5.0"
+  },
+  "devDependencies": {
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.4"
   }
 }
