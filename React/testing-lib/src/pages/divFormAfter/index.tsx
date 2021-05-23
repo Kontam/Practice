@@ -18,11 +18,10 @@ const DivForm: React.FC = () => {
     }
     setAnimals(animals.filter(animal => animal !== e.target.value));
   };
-  const isDisabled = !name || setAnimals.length === 0;
+
   // 入力されている名前とチェックされている動物をコンソールに出す
   const handleSubmit = () => {
-    if(isDisabled) return;
-    console.log('Submit', `name:${name}`, `animals:${animals.join(',')}`);
+    console.log(`name:${name}`, `animals:${animals.join(',')}`);
   };
 
   const checkList = [
@@ -32,7 +31,7 @@ const DivForm: React.FC = () => {
   ];
   return (
     <div>
-      <div><strong>Test Form</strong></div>
+      <h1>Test Form</h1>
       <div>
         <strong>name</strong>
       </div>
@@ -52,7 +51,7 @@ const DivForm: React.FC = () => {
         ))}
       </div>
 
-      <div style={buttonStyle} onClick={handleSubmit} data-disabled={isDisabled}>
+      <div style={buttonStyle} onClick={handleSubmit}>
         submit
       </div>
     </div>
