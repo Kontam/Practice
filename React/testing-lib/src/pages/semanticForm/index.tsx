@@ -8,7 +8,7 @@ const buttonStyle: CSSProperties = {
   color: 'white',
 };
 
-const DivForm: React.FC = () => {
+const Home: React.FC = () => {
   const [name, setName] = useState('');
   const [animals, setAnimals] = useState<string[]>([]);
   const handleCheck: React.ChangeEventHandler<HTMLInputElement> = e => {
@@ -24,11 +24,6 @@ const DivForm: React.FC = () => {
     console.log(`name:${name}`, `animals:${animals.join(',')}`);
   };
 
-  const checkList = [
-    {name: 'cat', label: 'Cat'},
-    {name: 'dog', label: 'Dog'},
-    {name: 'tiger', label: 'Tiger'},
-  ];
   return (
     <div>
       <div>
@@ -40,21 +35,47 @@ const DivForm: React.FC = () => {
         <strong>choose animals</strong>
       </div>
 
-      {/* 動物のチェックボックスリスト */}
-      <div style={{display: 'flex'}}>
-        {checkList.map(item => (
-          <div key={item.name} style={{marginRight: 10}}>
-            <div>{item.label}</div>
-            <input type="checkbox" name={item.name} onChange={handleCheck} />
-          </div>
-        ))}
-      </div>
+      <form style={{display: 'flex'}}>
+        <div style={{marginRight: 10}}>
+          <label>
+            Cat
+            <input
+              type="checkbox"
+              name="text"
+              value="cat"
+              onChange={handleCheck}
+            />
+          </label>
+        </div>
+        <div style={{marginRight: 10}}>
+          <label>
+            Dog
+            <input
+              type="checkbox"
+              name="text"
+              value="dog"
+              onChange={handleCheck}
+            />
+          </label>
+        </div>
+        <div>
+          <label>
+            tiger
+            <input
+              type="checkbox"
+              name="text"
+              value="tiger"
+              onChange={handleCheck}
+            />
+          </label>
+        </div>
+      </form>
 
-      <div style={buttonStyle} onClick={handleSubmit}>
+      <button style={buttonStyle} onClick={handleSubmit}>
         submit
-      </div>
+      </button>
     </div>
   );
 };
 
-export default DivForm;
+export default Home;
