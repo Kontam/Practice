@@ -16,7 +16,6 @@ const DivForm: React.FC = () => {
   // 入力されている名前とチェックされている動物をコンソールに出す
   const handleSubmit = () => {
     if (isDisabled) return;
-    console.log("Submit", `name:${name}`, `animals:${animals.join(",")}`);
     setIsDone(true);
   };
 
@@ -50,9 +49,7 @@ const DivForm: React.FC = () => {
       </div>
 
       <div
-        className={`${styles.button} ${
-          isDisabled ? styles.disabled : undefined
-        }`}
+        className={`${styles.button} ${isDisabled ? styles.disabled : ""}`}
         onClick={handleSubmit}
       >
         submit

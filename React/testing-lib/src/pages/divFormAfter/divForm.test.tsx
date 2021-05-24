@@ -32,7 +32,6 @@ describe("divForm", () => {
           // Labelを読んで対応するテキストボックスにしたい
           nameTextField = renderResult.getByRole("textbox");
         });
-        // nameフィールドに'Kontam'を入力する
         fireEvent.change(nameTextField, { target: { value: 'Kontam' } });
       })
       test("フィールドに値が反映される", async () => {
