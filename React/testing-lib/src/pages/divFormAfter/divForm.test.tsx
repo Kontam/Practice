@@ -1,5 +1,10 @@
 import React from "react";
-import { fireEvent, getByRole, render, RenderResult, waitFor } from "@testing-library/react";
+import {
+  fireEvent,
+  render,
+  RenderResult,
+  waitFor,
+} from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import DivForm from ".";
 
@@ -16,33 +21,57 @@ describe("divForm", () => {
   describe("初期状態", () => {
     test("フォームの見出しが表示されている", async () => {
       await waitFor(() => {
-        // 見出しはheadingロールで取得したい
-        expect(renderResult.getByText("Test Form"));
-      })
+        expect(renderResult.getByRole("heading"));
+      });
     });
     test("submitボタンが非活性状態になっている", async () => {
-      //
+      const button = renderResult.getByRole("button");
+      expect(button).toBeDisabled();
     });
   });
   describe("画面機能", () => {
     describe("nameフィールドに値を入力した時", () => {
-      let nameTextField: HTMLElement
+      let nameTextField: HTMLElement;
       beforeEach(async () => {
         await waitFor(() => {
-          // Labelを読んで対応するテキストボックスにしたい
-          nameTextField = renderResult.getByRole("textbox");
+          nameTextField = renderResult.getByLabelText("name", {
+            selector: "input",
+          });
         });
-        fireEvent.change(nameTextField, { target: { value: 'Kontam' } });
-      })
+        fireEvent.change(nameTextField, { target: { value: "Kontam" } });
+      });
       test("フィールドに値が反映される", async () => {
         await waitFor(() => {
-          expect(nameTextField).toHaveValue('Kontam');
-        })
+          expect(nameTextField).toHaveValue("Kontam");
+        });
       });
-    });
-    test("nameとanimalsを入力するとボタンが活性化する", async () => {
-      // todo
+      describe("加えて、animalsのtigerをチェックした時", () => {
+        let tigerCheckbox: HTMLElement;
+        let submitButton: HTMLElement;
+        beforeEach(async () => {
+          await waitFor(() => {
+            tigerCheckbox = renderResult.getByLabelText("tiger", {
+              selector: "input",
+            });
+          });
+          fireEvent.click(tigerCheckbox);
+          submitButton = renderResult.getByRole("button");
+        });
+        test("チェックボックスにチェックが入る", async () => {
+          expect(tigerCheckbox).toBeChecked();
+        });
 
+        test("submitボタンが活性化する", async () => {
+          await waitFor(() => expect(submitButton).toBeDisabled());
+        });
+
+        test("submitボタンを押下するとSUCCESSが表示される", async () => {
+          fireEvent.click(submitButton);
+          await waitFor(() =>
+            expect(renderResult.getByText(/SUCCESS/i)).toBeInTheDocument()
+          );
+        });
+      });
     });
   });
 });
