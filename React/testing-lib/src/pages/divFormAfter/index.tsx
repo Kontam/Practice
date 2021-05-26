@@ -1,59 +1,59 @@
-import React, {CSSProperties, useState} from 'react';
-
-const buttonStyle: CSSProperties = {
-  height: 30,
-  width: 60,
-  textAlign: 'center',
-  backgroundColor: 'gray',
-  color: 'white',
-};
+import React, { useState } from "react";
+import styles from "./divForm.module.css";
 
 const DivForm: React.FC = () => {
-  const [name, setName] = useState('');
+  const [name, setName] = useState("");
   const [animals, setAnimals] = useState<string[]>([]);
-  const handleCheck: React.ChangeEventHandler<HTMLInputElement> = e => {
+  const [isDone, setIsDone] = useState(false);
+  const handleCheck: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     if (e.target.checked) {
       setAnimals([...animals, e.target.value]);
       return;
     }
-    setAnimals(animals.filter(animal => animal !== e.target.value));
+    setAnimals(animals.filter((animal) => animal !== e.target.value));
   };
-
+  const isDisabled = !name || animals.length === 0;
   // 入力されている名前とチェックされている動物をコンソールに出す
   const handleSubmit = () => {
-    console.log(`name:${name}`, `animals:${animals.join(',')}`);
+    if (isDisabled) return;
+    setIsDone(true);
   };
 
   const checkList = [
-    {name: 'cat', label: 'Cat'},
-    {name: 'dog', label: 'Dog'},
-    {name: 'tiger', label: 'Tiger'},
+    { name: "cat", label: "Cat" },
+    { name: "dog", label: "Dog" },
+    { name: "tiger", label: "Tiger" },
   ];
   return (
     <div>
-      <h1>Test Form</h1>
-      <div>
-        <strong>name</strong>
-      </div>
-      <input type="text" name="text" onChange={e => setName(e.target.value)} />
+      <h1 className={styles.mainHeading}>Test Form</h1>
+      <label className={styles.subHeading}>
+        name
+        <input
+          type="text"
+          name="text"
+          onChange={(e) => setName(e.target.value)}
+        />
+      </label>
 
-      <div style={{marginTop: 10}}>
-        <strong>choose animals</strong>
-      </div>
+      <h2 className={styles.subHeading}>choose animals</h2>
 
       {/* 動物のチェックボックスリスト */}
-      <div style={{display: 'flex'}}>
-        {checkList.map(item => (
-          <div key={item.name} style={{marginRight: 10}}>
-            <div>{item.label}</div>
-            <input type="checkbox" name={item.name} onChange={handleCheck} />
-          </div>
+      <ul className={styles.form}>
+        {checkList.map((item) => (
+          <li key={item.name} className={styles.item}>
+            <label>
+              {item.label}
+              <input type="checkbox" name={item.name} onChange={handleCheck} />
+            </label>
+          </li>
         ))}
-      </div>
+      </ul>
 
-      <div style={buttonStyle} onClick={handleSubmit}>
+      <button onClick={handleSubmit} disabled={isDisabled}>
         submit
-      </div>
+      </button>
+      {isDone && <div className={styles.success}>SUCCESS!!</div>}
     </div>
   );
 };

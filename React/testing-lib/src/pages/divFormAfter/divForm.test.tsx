@@ -21,11 +21,11 @@ describe("divForm", () => {
   describe("初期状態", () => {
     test("フォームの見出しが表示されている", async () => {
       await waitFor(() => {
-        expect(renderResult.getByRole("heading"));
+        expect(renderResult.getByRole("heading", { name: /Test Form/i }));
       });
     });
     test("submitボタンが非活性状態になっている", async () => {
-      const button = renderResult.getByRole("button");
+      const button = renderResult.getByRole("button", { name: /submit/i });
       expect(button).toBeDisabled();
     });
   });
@@ -50,19 +50,21 @@ describe("divForm", () => {
         let submitButton: HTMLElement;
         beforeEach(async () => {
           await waitFor(() => {
-            tigerCheckbox = renderResult.getByLabelText("tiger", {
+            tigerCheckbox = renderResult.getByLabelText("Tiger", {
               selector: "input",
             });
           });
           fireEvent.click(tigerCheckbox);
-          submitButton = renderResult.getByRole("button");
+          submitButton = renderResult.getByRole("button", { name: /submit/i });
         });
         test("チェックボックスにチェックが入る", async () => {
-          expect(tigerCheckbox).toBeChecked();
+          await waitFor(() => {
+            expect(tigerCheckbox).toBeChecked();
+          });
         });
 
         test("submitボタンが活性化する", async () => {
-          await waitFor(() => expect(submitButton).toBeDisabled());
+          await waitFor(() => expect(submitButton).toBeEnabled());
         });
 
         test("submitボタンを押下するとSUCCESSが表示される", async () => {
