@@ -31,7 +31,7 @@ const DivForm: React.FC = () => {
         name
         <input
           type="text"
-          name="text"
+          name="name"
           onChange={(e) => setName(e.target.value)}
         />
       </label>
