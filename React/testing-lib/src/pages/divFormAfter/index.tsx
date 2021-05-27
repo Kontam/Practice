@@ -28,8 +28,9 @@ const DivForm: React.FC = () => {
     <div>
       <h1 className={styles.mainHeading}>Test Form</h1>
       <label className={styles.subHeading}>
-        name
+        <p>name</p>
         <input
+          className={styles.input}
           type="text"
           name="name"
           onChange={(e) => setName(e.target.value)}
