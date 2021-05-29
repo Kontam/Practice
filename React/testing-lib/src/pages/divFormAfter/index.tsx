@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import styles from "./divForm.module.css";
+import React, {useState} from 'react';
+import styles from './divForm.module.css';
 
 const DivForm: React.FC = () => {
-  const [name, setName] = useState("");
+  const [name, setName] = useState('');
   const [animals, setAnimals] = useState<string[]>([]);
   const [isDone, setIsDone] = useState(false);
-  const handleCheck: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+  const handleCheck: React.ChangeEventHandler<HTMLInputElement> = e => {
     if (e.target.checked) {
       setAnimals([...animals, e.target.value]);
       return;
     }
-    setAnimals(animals.filter((animal) => animal !== e.target.value));
+    setAnimals(animals.filter(animal => animal !== e.target.value));
   };
   const isDisabled = !name || animals.length === 0;
   // 入力されている名前とチェックされている動物をコンソールに出す
@@ -20,20 +20,20 @@ const DivForm: React.FC = () => {
   };
 
   const checkList = [
-    { name: "cat", label: "Cat" },
-    { name: "dog", label: "Dog" },
-    { name: "tiger", label: "Tiger" },
+    {name: 'cat', label: 'Cat'},
+    {name: 'dog', label: 'Dog'},
+    {name: 'tiger', label: 'Tiger'},
   ];
   return (
     <div>
       <h1 className={styles.mainHeading}>Test Form</h1>
-      <label className={styles.subHeading}>
+      <label className={styles.singleLabel}>
         <p>name</p>
         <input
           className={styles.input}
           type="text"
           name="name"
-          onChange={(e) => setName(e.target.value)}
+          onChange={e => setName(e.target.value)}
         />
       </label>
 
@@ -41,17 +41,20 @@ const DivForm: React.FC = () => {
 
       {/* 動物のチェックボックスリスト */}
       <ul className={styles.form}>
-        {checkList.map((item) => (
+        {checkList.map(item => (
           <li key={item.name} className={styles.item}>
             <label>
-              {item.label}
+              <p>{item.label}</p>
               <input type="checkbox" name={item.name} onChange={handleCheck} />
             </label>
           </li>
         ))}
       </ul>
 
-      <button onClick={handleSubmit} disabled={isDisabled}>
+      <button
+        onClick={handleSubmit}
+        disabled={isDisabled}
+        className={`${styles.button} ${isDisabled ? styles.disabled : ''}`}>
         submit
       </button>
       {isDone && <div className={styles.success}>SUCCESS!!</div>}
