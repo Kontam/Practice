@@ -15,9 +15,9 @@ describe("divForm", () => {
   });
   describe("初期状態", () => {
     test("フォームの見出しが表示されている", async () => {
-        await waitFor(() => {
-          expect(renderResult.getByRole("heading"));
-        })
+      await waitFor(() => {
+        expect(renderResult.getByRole("heading"));
+      });
     });
   });
 });
