@@ -22,5 +22,5 @@ import { format } from 'date-fns';
   const timeStamp = format(new Date(), DATE_FORMAT);
 
   process.chdir(CWD);
-  await runLightHouse(target[0], `${lastCommitHash}_${timeStamp}.json`);
+  await runLightHouse(target[0], `${lastCommitHash}_${timeStamp}.json`, 'dist');
 })();
