@@ -23,23 +23,12 @@ type Target = {
 
   process.chdir(config.gitRoot);
   const gitLogResult = execSync(`git log | grep commit -m1`).toString();
-  const lastCommitHash = gitLogResult.split(" ")[1];
+  const lastCommitHash = gitLogResult.split(" ")[1].trim();
 
   const timeStamp = format(new Date(), DATE_FORMAT);
 
   process.chdir(CWD);
-  // TODO: promiseを順番に実行する　並列でエラーが出ているらしい
-  /*
-  const promises = target.reduce<Promise<void>>((promise, t) => {
-    return promise.then(() => {
-      return runLightHouse(
-        t.path,
-        `${lastCommitHash}_${timeStamp}.json`,
-        `dist/${t.name}`
-      )
-    })
-  }, Promise.resolve());
-  */
+  console.log("target", target);
 
   const promises = target.map((t) => {
     return () => runLightHouse(
@@ -48,5 +37,5 @@ type Target = {
       `dist/${t.name}`
     )
   });
-  await synchronous(promises);
+  synchronous(promises);
 })();
