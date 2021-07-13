@@ -1,0 +1,8 @@
+{
+  "extends": "./tsconfig.json",
+  "include": ["public/sw.ts"],
+  "exclude": [],
+  "outDir": "./public",
+  "noEmit": false,
+  "isolatedModules": false
+}

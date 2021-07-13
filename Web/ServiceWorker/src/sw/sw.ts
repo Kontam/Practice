@@ -1,3 +1,8 @@
-self.addEventListener('install', function(event) {
-  console.log('I am sw');
+self.addEventListener('install', function (event) {
+  // Perform install steps
+  console.log('sw.js');
+});
+
+self.addEventListener('fetch', function (event) {
+  console.log(event);
 });
