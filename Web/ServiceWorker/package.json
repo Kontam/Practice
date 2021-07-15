@@ -11,6 +11,7 @@
     "test": "npx jest"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "chart.js": "^3.3.2",
     "destyle.css": "^2.0.2",
     "glob": "^7.1.7",

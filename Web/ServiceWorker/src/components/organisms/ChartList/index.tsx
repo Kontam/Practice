@@ -1,13 +1,29 @@
-import React from 'react';
-import Graph from '../../molecules/Graph';
-import { useGraph } from './useGraph';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+
+export type Todo = {
+  id: string;
+  name: string;
+};
 
 const ChartList: React.FC = () => {
-  //const dataSets = useGraph();
-  const dataSets = [];
+  const [todo, setTodo] = useState<Todo[]>([]);
+  useEffect(() => {
+    axios.get<Todo[]>('/api/todo').then((result) => {
+      setTodo(result.data);
+    });
+  }, []);
+
   return (
     <div>
-      <Graph data={dataSets[0]} />
+      <h1>TodoList</h1>
+      <ul>
+        {todo.map((item) => (
+          <li key={item.id}>
+            <p>{item.name}</p>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

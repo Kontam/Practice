@@ -4,6 +4,7 @@ import * as lighthouse from 'lighthouse';
 import * as chromeLauncher from 'chrome-launcher';
 
 export async function runLightHouse(url: string, filename: string, dir = '.'): Promise<void> {
+  console.log('lighthouse', lighthouse);
   const chrome = await chromeLauncher.launch({chromeFlags: ['--headless']});
   const options = {
     logLevel: 'info',
