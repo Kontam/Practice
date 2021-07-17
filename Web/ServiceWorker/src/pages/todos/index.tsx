@@ -1,12 +1,14 @@
 import React from 'react';
 import ChartList from '../../components/organisms/ChartList';
+import Header from '../../components/organisms/Header';
 
-const Chart: React.FC = () => {
+const Todos: React.FC = () => {
   return (
     <div>
+      <Header />
       <ChartList />
     </div>
   );
 };
 
-export default Chart;
+export default Todos;
