@@ -19,9 +19,26 @@ self.addEventListener('fetch', function (event: any) {
   event.respondWith(
     caches.match(event.request).then(function (response) {
       if (response) {
+        console.log("cache hit", response);
         return response;
       }
-      return fetch(event.request);
+
+      const fetchRequest = event.request.clone();
+
+      return fetch(fetchRequest).then((response) => {
+        if (!response || response.status !== 200 || response.type !== 'basic') {
+          return response;
+        }
+
+        const responseToCache = response.clone();
+
+        caches.open(CHACHE_NAME).then((cache) => {
+          console.log("new cache", responseToCache);
+          cache.put(event.request, responseToCache);
+        });
+
+        return response;
+      });
     })
   );
 });
