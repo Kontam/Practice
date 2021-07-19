@@ -1,0 +1,16 @@
+{
+  "name": "test",
+  "short_name": "testName",
+  "description": "this is test",
+  "icons": [
+    {
+      "src": "images/icon.png",
+      "sizes": "500x500",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/",
+  "display": "fullscreen",
+  "theme_color": "#B12A34",
+  "background_color": "#B12A34"
+}
