@@ -12,6 +12,9 @@ const Index: NextPage = () => {
       <div>
         <h1>home</h1>
         <p>This is index.tsx</p>
+        <button type="button">Push</button>
+      </div>
+      <div>
         <div style={{ display: 'flex' }}>
           <div style={{ position: 'relative', height: 500, width: 500 }}>
             <Image src={momo} alt="momo" objectFit="contain" layout="fill" />
