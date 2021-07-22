@@ -1,14 +1,23 @@
 const puppeteer = require('puppeteer');
 
 (async () => {
-  console.log("pu")
   const browser = await puppeteer.launch({
     headless: false
   });
   const page = await browser.newPage();
-  await page.goto('https://example.com');
-  await page.screenshot({path: 'example.png'});
-  await page.waitFor(4000);
+  await page.tracing.start({path: 'trace.json'});
+  await page.goto('http://192.168.3.7:3000/');
+  await page.waitFor(3000);
+
+  const links = await page.$$('.HeaderMenuItem__Container-reccei-0');
+  if (links.length > 0) {
+   await links[1].click();
+  }
+  await page.waitFor(3000);
+
+  
+  await page.tracing.stop();
+
 
   await browser.close();
 })();
