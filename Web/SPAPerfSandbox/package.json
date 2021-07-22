@@ -1,0 +1,22 @@
+{
+  "name": "SPAPerfSandbox",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "puppeteer": "^10.1.0",
+    "puppeteer-core": "^10.1.0",
+    "speedline": "^1.4.3"
+  },
+  "devDependencies": {
+    "@types/puppeteer": "^5.4.4",
+    "ts-node": "^10.1.0",
+    "typescript": "^4.3.5"
+  }
+}
