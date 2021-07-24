@@ -1,9 +1,7 @@
-import * as Diff from 'diff';
-import colors from 'colors';
 import perfJson from '../test.json';
 import * as fs from 'fs-extra';
 import {ClickEvent, SnapShot} from '../types';
-import {imgDiff} from './jpgImgDiff';
+import {imgDiff} from './utils/jpgImgDiff';
 
 const OUT_DIR = './dist';
 

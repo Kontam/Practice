@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "puppeteer": "ts-node src/puppeteer.ts",
+    "analyze": "ts-node src/analyze.ts"
   },
   "keywords": [],
   "author": "",
@@ -14,6 +15,7 @@
     "@types/jpeg-js": "^0.3.7",
     "colors": "^1.4.0",
     "fs-extra": "^10.0.0",
+    "glob": "^7.1.7",
     "jpeg-js": "^0.4.3",
     "jsdiff": "^1.1.1",
     "pixelmatch": "^5.2.1",
