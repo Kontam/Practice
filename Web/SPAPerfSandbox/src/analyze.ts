@@ -2,7 +2,7 @@ import * as Diff from 'diff';
 import colors from 'colors';
 import perfJson from '../test.json';
 import * as fs from 'fs-extra';
-import {SnapShot} from '../types';
+import {ClickEvent, SnapShot} from '../types';
 import {imgDiff} from './jpgImgDiff';
 
 const OUT_DIR = './dist';
@@ -44,5 +44,18 @@ const OUT_DIR = './dist';
 
   await Promise.all(p);
   console.log('index:', firstMismatchedIndex);
-  console.log('diff!!', final,  `${OUT_DIR}/${firstMismatchedIndex}.jpeg`);
+  console.log('diff!!', final, `${OUT_DIR}/${firstMismatchedIndex}.jpeg`);
+  const completeRender = snapshots[firstMismatchedIndex + 1];
+
+  let clickEvent: ClickEvent[] = perfJson.traceEvents.filter((data, index) => {
+    if (data?.name === 'EventDispatch' && data?.args?.data?.type === 'click') {
+      return data;
+    }
+  });
+  const duration = completeRender.ts - clickEvent[0].ts;
+  const result = `click link: ${clickEvent[0].ts}\n
+  completeRender: ${completeRender.ts}\n
+  duration: ${duration / 1000}[ms]
+  `;
+  console.log(result);
 })();
