@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "@types/diff": "^5.0.1",
+    "@types/glob": "^7.1.4",
     "@types/pixelmatch": "^5.2.4",
     "@types/puppeteer": "^5.4.4",
     "@types/sharp": "^0.28.4",

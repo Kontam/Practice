@@ -1,21 +1,28 @@
-import puppeteer from 'puppeteer';
-import homeToStartScenario from '../scenario/homeToStart';
+import puppeteer, {Page,Browser} from 'puppeteer';
+import {getScenarios} from './utils/getScenarios';
+
+const SCENARIO_DIR = 'scenario';
 
 (async () => {
   const browser = await puppeteer.launch({
     headless: false,
     devtools: true,
   });
-  
-  try {
-
-  const page = await browser.newPage();
-  await homeToStartScenario(page);
-
-  await browser.close();
-  } catch(e) {
-    console.error(e);
-  } finally {
-    browser.close(); 
-  }
+  const scenarios: string[] = getScenarios(SCENARIO_DIR);
+  scenarios.forEach((sc) => runScenario(sc, browser));
 })();
+
+async function runScenario(sc: string, browser: Browser) {
+    try {
+      console.log('start:', sc);
+      const {scenario} = require(`../${sc}`);
+      const page = await browser.newPage();
+      await scenario(page);
+
+      await browser.close();
+    } catch (e) {
+      console.error(e);
+    } finally {
+      browser.close();
+    }
+};

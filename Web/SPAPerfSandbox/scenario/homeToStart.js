@@ -1,6 +1,5 @@
-import {Page} from "puppeteer";
 
-export default async function homeToStartScenario(page: Page) {
+exports.scenario = async function(page) {
   const FILENAME = 'timeline/homeToStart.json';
   const START_URL = 'http://192.168.3.7:3000/';
   
