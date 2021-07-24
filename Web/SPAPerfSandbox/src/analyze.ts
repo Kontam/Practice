@@ -1,7 +1,10 @@
 import * as Diff from 'diff';
 import colors from 'colors';
-import perfJson from './test.json';
-import { SnapShot } from './types';
+import perfJson from '../test.json';
+import * as fs from 'fs-extra';
+import {SnapShot} from '../types';
+
+const OUT_DIR = './dist';
 
 let snapshots: SnapShot[] = perfJson.traceEvents.filter((data, index) => {
   if ('snapshot' in data.args) {
@@ -9,7 +12,7 @@ let snapshots: SnapShot[] = perfJson.traceEvents.filter((data, index) => {
   }
 });
 
-console.log("length", snapshots.length);
+console.log('length', snapshots.length);
 const first = snapshots[17].args.snapshot;
 const second = snapshots[18].args.snapshot;
 
@@ -17,6 +20,14 @@ console.log(first);
 console.log(second);
 
 snapshots.forEach((data, index) => {
+  fs.outputFile(
+    `${OUT_DIR}/${index}.jpeg`,
+    data.args.snapshot,
+    {encoding: 'base64'},
+    err => {
+      console.error('outputFile', err);
+    },
+  );
   console.log(index, data.ts);
 });
 /*

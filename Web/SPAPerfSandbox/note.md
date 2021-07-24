@@ -1,3 +1,7 @@
+## Doc
+- https://docs.google.com/document/d/1CvAClvFfyA5R-PhYUmn5OOQtYMH4h6I0nSsKchNAySU/edit
+- 公式ではない？
+
 ## 使えそうなもの
 - EvaluateScriptは簡単に撮れる
 - ファイル名、所要時間（dur)など
