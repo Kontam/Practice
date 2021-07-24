@@ -13,11 +13,6 @@ let snapshots: SnapShot[] = perfJson.traceEvents.filter((data, index) => {
 });
 
 console.log('length', snapshots.length);
-const first = snapshots[17].args.snapshot;
-const second = snapshots[18].args.snapshot;
-
-console.log(first);
-console.log(second);
 
 snapshots.forEach((data, index) => {
   fs.outputFile(

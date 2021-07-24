@@ -18,13 +18,15 @@ const FILENAME = 'test.json';
   if (links.length > 0) {
    await links[1].click();
   }
-  await page.waitFor(5000);
+  await page.waitFor(10000);
 
   
   await page.tracing.stop();
 
+  /*
   const result = await speedline(FILENAME);
   console.log(result);
+ */
 
 
   await browser.close();
