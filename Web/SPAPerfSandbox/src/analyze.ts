@@ -1,12 +1,18 @@
-import perfJson from '../test.json';
 import * as fs from 'fs-extra';
 import {ClickEvent, SnapShot} from '../types';
 import {imgDiff} from './utils/jpgImgDiff';
+import {getTimelines} from './utils/getTimelines';
 
-const OUT_DIR = './dist';
 
 (async () => {
-  let snapshots: SnapShot[] = perfJson.traceEvents.filter((data, index) => {
+  const TIMELINE_DIR = 'timeline';
+  const OUT_DIR_ROOT = 'diff';
+  const jsons = getTimelines(TIMELINE_DIR);
+  console.log(jsons);
+  const perfJson = require(`../${jsons[0]}`);
+  const OUT_DIR = jsons[0].replace(TIMELINE_DIR, OUT_DIR_ROOT).replace(/[^\/]*.json$/,'');
+
+  let snapshots: SnapShot[] = perfJson.traceEvents.filter((data: any) => {
     if ('snapshot' in data.args) {
       return data;
     }
@@ -31,7 +37,7 @@ const OUT_DIR = './dist';
 
   let firstMismatchedIndex = -1;
   // 最後の１枚と画像ファイルを後ろから順番に比較
-  const p = snapshots.map(async (data, index) => {
+  const p = snapshots.map(async (_, index) => {
     const currentIndex = snapshots.length - 1 - index;
     const result = await imgDiff(final, `${OUT_DIR}/${currentIndex}.jpeg`);
     if (result !== 0 && firstMismatchedIndex === -1) {
@@ -45,7 +51,7 @@ const OUT_DIR = './dist';
   console.log('diff!!', final, `${OUT_DIR}/${firstMismatchedIndex}.jpeg`);
   const completeRender = snapshots[firstMismatchedIndex + 1];
 
-  let clickEvent: ClickEvent[] = perfJson.traceEvents.filter((data, index) => {
+  let clickEvent: ClickEvent[] = perfJson.traceEvents.filter((data: any) => {
     if (data?.name === 'EventDispatch' && data?.args?.data?.type === 'click') {
       return data;
     }
