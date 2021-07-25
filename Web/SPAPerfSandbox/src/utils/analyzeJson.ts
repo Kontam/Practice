@@ -24,7 +24,7 @@ export async function analyzeJson(
       data.args.snapshot,
       {encoding: 'base64'},
       err => {
-        console.error('outputFile', err);
+        err && console.error('outputFile', err);
       },
     );
   });
@@ -49,8 +49,6 @@ export async function analyzeJson(
   });
 
   await Promise.all(p);
-  console.log('index:', firstMismatchedIndex);
-  console.log('diff!!', final, `${outDirDist}/${firstMismatchedIndex}.jpeg`);
   const completeRender = snapshots[firstMismatchedIndex + 1];
 
   let clickEvent: ClickEvent[] = perfJson.traceEvents.filter((data: any) => {
@@ -59,7 +57,9 @@ export async function analyzeJson(
     }
   });
   const duration = completeRender.ts - clickEvent[0].ts;
-  const result = `click link: ${clickEvent[0].ts}\n
+  const result = `
+  ${outDirDist}${firstMismatchedIndex}.jpeg has difference.\n
+  click link: ${clickEvent[0].ts}\n
   completeRender: ${completeRender.ts}\n
   duration: ${duration / 1000}[ms]
   `;
