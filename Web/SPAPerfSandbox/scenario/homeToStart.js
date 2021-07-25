@@ -1,7 +1,10 @@
+const fs = require('fs-extra');
 
 exports.scenario = async function(page) {
-  const FILENAME = 'timeline/homeToStart.json';
+  const FILENAME = 'timeline/cheerLP/homeToStart.json';
   const START_URL = 'http://192.168.3.7:3000/';
+
+  fs.ensureFile(FILENAME);
   
   await page.goto(START_URL);
   const links = await page.$$('.HeaderMenuItem__Container-reccei-0');
