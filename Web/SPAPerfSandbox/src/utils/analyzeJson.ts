@@ -1,8 +1,12 @@
-import {ClickEvent, SnapShot} from "../../types";
-import fs from "fs-extra";
-import {imgDiff} from "./jpgImgDiff";
+import {ClickEvent, SnapShot} from '../../types';
+import fs from 'fs-extra';
+import {imgDiff} from './jpgImgDiff';
 
-export async function analyzeJson(jsonPath: string, diffOutDir: string) {
+export async function analyzeJson(
+  jsonPath: string,
+  outDirDist: string,
+  outDirDiff: string,
+) {
   const perfJson = require(jsonPath);
 
   let snapshots: SnapShot[] = perfJson.traceEvents.filter((data: any) => {
@@ -14,25 +18,30 @@ export async function analyzeJson(jsonPath: string, diffOutDir: string) {
   console.log('length', snapshots.length);
 
   // 画像ファイル書き出し
-  snapshots.forEach((data, index) => {
-    fs.outputFile(
-      `${diffOutDir}/${index}.jpeg`,
+  const outputPromises = snapshots.map((data, index) => {
+    return fs.outputFile(
+      `${outDirDist}/${index}.jpeg`,
       data.args.snapshot,
       {encoding: 'base64'},
       err => {
         console.error('outputFile', err);
       },
     );
-    console.log(index, data.ts);
   });
+  await Promise.all(outputPromises);
 
-  const final = `${diffOutDir}/${snapshots.length - 1}.jpeg`;
+  const finalIndex = snapshots.length - 1;
+  const final = `${outDirDist}/${finalIndex}.jpeg`;
 
   let firstMismatchedIndex = -1;
   // 最後の１枚と画像ファイルを後ろから順番に比較
   const p = snapshots.map(async (_, index) => {
-    const currentIndex = snapshots.length - 1 - index;
-    const result = await imgDiff(final, `${diffOutDir}/${currentIndex}.jpeg`);
+    const currentIndex = finalIndex - index;
+    const result = await imgDiff(
+      final,
+      `${outDirDist}${currentIndex}.jpeg`,
+      `${outDirDiff}${finalIndex}-${currentIndex}.jpeg`,
+    );
     if (result !== 0 && firstMismatchedIndex === -1) {
       firstMismatchedIndex = currentIndex; // 最初に差分が出た画像のインデックス
     }
@@ -41,7 +50,7 @@ export async function analyzeJson(jsonPath: string, diffOutDir: string) {
 
   await Promise.all(p);
   console.log('index:', firstMismatchedIndex);
-  console.log('diff!!', final, `${diffOutDir}/${firstMismatchedIndex}.jpeg`);
+  console.log('diff!!', final, `${outDirDist}/${firstMismatchedIndex}.jpeg`);
   const completeRender = snapshots[firstMismatchedIndex + 1];
 
   let clickEvent: ClickEvent[] = perfJson.traceEvents.filter((data: any) => {
