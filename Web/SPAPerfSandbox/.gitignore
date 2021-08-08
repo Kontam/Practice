@@ -1,3 +1,6 @@
 dist
 diff
-timeline
+archive
+timeline/**/*.json
+node_modules
+.DS_Store

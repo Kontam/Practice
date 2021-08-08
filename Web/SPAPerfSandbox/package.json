@@ -1,11 +1,15 @@
 {
-  "name": "SPAPerfSandbox",
+  "name": "SPATimeline",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
-    "puppeteer": "ts-node src/puppeteer.ts",
-    "analyze": "ts-node src/analyze.ts"
+    "timeline": "ts-node src/timeline/puppeteer.ts",
+    "analyze": "ts-node src/analyze/analyze.ts",
+    "lint": "eslint ./src ./scenario",
+    "lint:fix": "eslint --fix ./src ./scenario",
+    "typecheck": "tsc --noEmit",
+    "test:all": "npm run lint && npm run typecheck",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
@@ -13,7 +17,12 @@
   "dependencies": {
     "@types/fs-extra": "^9.0.12",
     "@types/jpeg-js": "^0.3.7",
+    "arg": "^5.0.0",
+    "cli-table3": "^0.6.0",
     "colors": "^1.4.0",
+    "csv-generate": "^3.4.0",
+    "csv-stringify": "^5.6.2",
+    "date-fns": "^2.23.0",
     "fs-extra": "^10.0.0",
     "glob": "^7.1.7",
     "jpeg-js": "^0.4.3",
@@ -27,9 +36,21 @@
   "devDependencies": {
     "@types/diff": "^5.0.1",
     "@types/glob": "^7.1.4",
+    "@types/jest": "^26.0.24",
     "@types/pixelmatch": "^5.2.4",
     "@types/puppeteer": "^5.4.4",
     "@types/sharp": "^0.28.4",
+    "@typescript-eslint/eslint-plugin": "^4.28.5",
+    "@typescript-eslint/parser": "^4.28.5",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-config-standard-with-typescript": "^20.0.0",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "jest": "^27.0.6",
+    "prettier": "^2.3.2",
+    "ts-jest": "^27.0.4",
     "ts-node": "^10.1.0",
     "typescript": "^4.3.5"
   }

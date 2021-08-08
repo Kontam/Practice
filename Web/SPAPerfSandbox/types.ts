@@ -13,3 +13,12 @@ export type SnapShot = {
 
 const clickJson = {"args":{"data":{"type":"click"}},"cat":"devtools.timeline","dur":28161,"name":"EventDispatch","ph":"X","pid":90613,"tdur":28033,"tid":775,"ts":898107956969,"tts":352370}
 export type ClickEvent = typeof clickJson;
+
+export type ResultData = {
+  duration: number;
+};
+
+export type ScenarioResult = {
+  name: string;
+  data: ResultData[],
+};
