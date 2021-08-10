@@ -1,4 +1,4 @@
-const { parse } = require('babylon');
+const {parse} = require('babylon');
 
 const code = process.argv.slice(2).join(' ');
 
@@ -19,7 +19,7 @@ const isNode = obj => {
   }
 
   return false;
-}
+};
 
 const getCode = node => code.substr(node.start, node.end - node.start);
 
@@ -57,24 +57,44 @@ const exitVisitor = {
     return `${getCode(node)} = ${expr}`;
   },
   BinaryExpression: (node, res, indent) => {
-    const str = `${' '.repeat(indent)} ${res.left} ${node.operator} ${res.right}`;
+    const str = `${' '.repeat(indent)} ${res.left} ${node.operator} ${
+      res.right
+    }`;
     console.log(str);
-    const { left, right } = res;
+    const {left, right} = res;
     switch (node.operator) {
-      case '+': return left + right;
-      case '*': return left * right;
-      case '-': return left - right;
-      case '/': return left / right;
-      case '%': return left % right;
-      default: throw new Error('対応していない二項演算子');
+      case '+':
+        return left + right;
+      case '*':
+        return left * right;
+      case '-':
+        return left - right;
+      case '/':
+        return left / right;
+      case '%':
+        return left % right;
+      default:
+        throw new Error('対応していない二項演算子');
     }
   },
   NumericLiteral: (node, res, indent) => {
     const str = `${' '.repeat(indent)} value: ${node.value}`;
     console.log(str);
     return node.value;
-  }
-}
+  },
+  CallExpression: (node, res, indent) => {
+    return node.value;
+  },
+  MemberExpression: (node, res, indent) => {
+    return node.value;
+  },
+  Identifier: (node, res, indent) => {
+    return node.value;
+  },
+  StringLiteral: (node, res, indent) => {
+    return node.value;
+  },
+};
 
 const results = traverser(parse(code), exitVisitor);
 console.log(' ');
