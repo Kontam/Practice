@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "ast-pretty-print": "^2.0.1",
     "babylon": "^6.18.0"
   }
 }
