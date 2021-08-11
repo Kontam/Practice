@@ -1,9 +1,26 @@
-const code = '1+2 * (3+4)';
+const {getCode} = require('./utils/getCode');
 
-const getCode = node => code.substr(node.start, node.end - node.start);
+const isNode = obj => {
+  if (typeof obj !== 'object') {
+    return false;
+  }
 
-const traverser = (node, exitVisitor, indent = 0) => {
-  const str = `${` `.repeat(indent)}enter: ${node.type}'${getCode(node)}'`;
+  if (Array.isArray(obj)) {
+    return obj.find(v => isNode(v)) !== undefined;
+  }
+
+  while (obj && 'constructor' in obj) {
+    if (obj.constructor.name === 'Node') {
+      return true;
+    }
+    obj = Object.getPrototypeOf(obj);
+  }
+
+  return false;
+};
+
+const traverser = (code, node, exitVisitor, indent = 0) => {
+  const str = `${` `.repeat(indent)}enter: ${node.type}'${getCode(code, node)}'`;
   console.log(str);
 
   if (!(node.type in exitVisitor)) {
@@ -19,13 +36,13 @@ const traverser = (node, exitVisitor, indent = 0) => {
       return;
     }
     if (Array.isArray(node[key])) {
-      res[key].map(v => traverser(v, exitVisitor, indent + 2));
+      res[key] = node[key].map(v => traverser(code, v, exitVisitor, indent + 2));
     } else {
-      res[key] = traverser(node[key], exitVisitor, indent + 2);
+      res[key] = traverser(code, node[key], exitVisitor, indent + 2);
     }
   });
 
   return exitVisitor[node.type](node, res, indent);
 };
 
-module.exports = { getCode, traverser }
+module.exports = { traverser }
