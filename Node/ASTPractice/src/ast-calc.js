@@ -1,5 +1,4 @@
 const {parse} = require('babylon');
-const {getCode} = require('./utils/getCode');
 const {traverser} = require('./traverser');
 const {exitVisitor} = require('./visitor');
 
@@ -8,4 +7,4 @@ console.log(code);
 
 const results = traverser(code, parse(code), exitVisitor);
 console.log(' ');
-results.forEach(result => console.log(result));
+results.forEach(result => console.log('result', result));

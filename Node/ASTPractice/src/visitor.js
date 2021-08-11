@@ -1,6 +1,3 @@
-//const getCode = require('./traverser');
-// const getCode = node => code.substr(node.start, node.end - node.start);
-
 const exitVisitor = {
   File: (node, res) => res.program,
   Program: (node, res) => res.body,
