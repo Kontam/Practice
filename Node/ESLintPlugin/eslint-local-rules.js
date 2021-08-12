@@ -1,1 +1,1 @@
-module.exports = require("./").rules;
+module.exports = require("./src/index").rules;
