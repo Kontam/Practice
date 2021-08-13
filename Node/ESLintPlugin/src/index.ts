@@ -1,14 +1,15 @@
 import { testName } from "./testName";
+console.log("index.ts", testName.create());
 
 export = {
   rules: {
-    "ruleName": testName,
+    "testName": testName,
   },
   configs: {
     all: {
       plugins: ["plugin-name"],
       rules: {
-        "ruleName": "error",
+        "testName": "error",
       }
     },
   },

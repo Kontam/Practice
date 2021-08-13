@@ -10,5 +10,5 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: ['@typescript-eslint', 'eslint-plugin-local-rules'],
-  rules: {},
+  rules: {'local-rules/testName': 2},
 };
