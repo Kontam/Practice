@@ -12,7 +12,7 @@ export const testName: any = {
   create: context => {
     return {
       BinaryExpression: node => {
-        context.report({ node, message: 'messageId' });
+        context.report({ node, message: 'BinaryExpression' });
       },
       Comment: node => {
         context.report({

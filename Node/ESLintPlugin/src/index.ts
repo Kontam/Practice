@@ -1,5 +1,4 @@
-import { testName } from "./testName";
-console.log("index.ts", testName.create());
+import { testName } from "./rules/testName";
 
 export = {
   rules: {
