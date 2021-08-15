@@ -1,0 +1,17 @@
+.root {
+  margin-top: 20px;
+}
+
+.label {
+  font-size: 18px;
+}
+
+.inputBlock {
+  margin-top: 5px;
+}
+
+.submit {
+  padding: 10px;
+  cursor: pointer;
+  background-color: lightblue;
+}
