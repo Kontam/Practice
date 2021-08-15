@@ -22,3 +22,12 @@ export type ScenarioResult = {
   name: string;
   data: ResultData[],
 };
+
+export type Command =  {
+  default?: boolean;
+  name: string;
+  optionTypes: {[key:string]: BooleanConstructor| NumberConstructor | StringConstructor};
+  exec: (args?: any) => void | Promise<void>;
+  helpText: string;
+}
+

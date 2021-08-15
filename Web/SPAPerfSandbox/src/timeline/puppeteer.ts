@@ -3,7 +3,6 @@ import {getScenarios} from './utils/getScenarios';
 import {syncronize} from '../utils/syncronize';
 import path from 'path';
 import {Scenario} from '../classes/Scenario';
-import {parseOptions} from './utils/parseOptions';
 import fs from 'fs-extra';
 import { format } from 'date-fns';
 
@@ -14,26 +13,31 @@ const width = 1280;
 const height = 900;
 const DATE_FORMAT = 'yyyyMMdd-HH:mm:ss';
 
-(async () => {
-  const optionValues = parseOptions();
-  fs.ensureDir(ARCHIVE_DIR);
-  await fs.move(TIMELINE_DIR, `${ARCHIVE_DIR}/${format(new Date(), DATE_FORMAT)}`);
+export const runAudit = async (args: any) => {
+  const times = args["--times"] || 1;
+  const names = args["--scenario"] ? [args["--scinario"]] : [];
+  if (fs.existsSync(TIMELINE_DIR)) {
+    fs.ensureDir(ARCHIVE_DIR);
+    await fs.move(TIMELINE_DIR, `${ARCHIVE_DIR}/${format(new Date(), DATE_FORMAT)}`);
+  }
   const scenarios: string[] = getScenarios(SCENARIO_DIR);
   const asyncFuncs: Array<() => Promise<void>> = [];
   scenarios.forEach(sc => {
-    for (let i = 0; i < optionValues.times; i++) {
+    for (let i = 0; i <times; i++) {
       asyncFuncs.push(() => {
-        return runScenario(sc,i,optionValues.names);
+        return runScenario(sc,i,names);
       });
     }
   });
   syncronize(asyncFuncs);
-})();
+}
 
-async function runScenario(sc: string, lap: number, names?: string[]) {
+
+async function runScenario(sc: string, lap: number, names: string[]) {
+  console.log(names, "runScenario")
   const module = await import(path.resolve(__dirname, `../../${sc}`));
   const scenario: Scenario = module.default;
-  if (names?.length && !names.includes(scenario.name)) {
+  if (names.length > 0 && !names.includes(scenario.name)) {
     return; 
   }
 
