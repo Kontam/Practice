@@ -4,15 +4,21 @@ import Link from "next/link";
 const Menu: NextPage = () => {
   return (
     <div>
-	    <ul>
+      <ul>
         <li>
-          <Link href="/about" passHref><a>About</a></Link>
+          <Link href="/about" passHref>
+            <a>About</a>
+          </Link>
         </li>
         <li>
-          <Link href="/about_ssr" passHref><a>About_SSR</a></Link>
+          <Link href="/about_ssr" passHref>
+            <a>About_SSR</a>
+          </Link>
         </li>
         <li>
-          <Link href="/about_static" passHref><a>About_Static</a></Link>
+          <Link href="/about_static" passHref>
+            <a>About_Static</a>
+          </Link>
         </li>
       </ul>
     </div>
