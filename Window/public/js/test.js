@@ -13,7 +13,13 @@
   
   appedButton.addEventListener("click", () => {
     child.document.getElementById("head").innerHTML = "from parent";
+    const sc = document.createElement("script");
+    const json = [
+      { name: "kontam", id: "1"},
+      { name: "kontam2", id: "2"},
+    ];
+    sc.innerHTML = `var x = ${JSON.stringify(json)}`;
+    child.document.querySelector("body").appendChild(sc);
   })
-
 
 })()
