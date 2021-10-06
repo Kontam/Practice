@@ -1,15 +1,19 @@
 import { NextPage } from "next";
 
+declare const data: any;
+
 const Child: NextPage = () => {
   const handleClick = () => {
-    window.open("/child", "c1", "width=500,height=500")
-  }
-	return (
+    console.log(data);
+  };
+  return (
     <div>
-	    <h1>Child</h1>
-      <button type="button" onClick={handleClick}>Open</button>
+      <h1>Child</h1>
+      <button type="button" onClick={handleClick}>
+        show data
+      </button>
     </div>
-	)
-}
+  );
+};
 
 export default Child;
