@@ -1,54 +1,39 @@
-import {getTimelines} from './utils/getTimelines';
-import {analyzeJson} from './utils/analyzeJson';
-import path from 'path';
-import {ScenarioResult} from '../../types';
-import {outputResuts} from './utils/outputResults';
-import fs from 'fs-extra';
-import {format} from 'date-fns';
-import { convertToCSV } from "./utils/convertToCSV";
+import { getTimelines } from "./utils/getTimelines";
+import { archiveFiles } from "./utils/archiveFiles";
+import {
+  ARCHIVE_DIR,
+  OUT_DIR_DIFF,
+  OUT_DIR_DIST,
+  TIMELINE_DIR,
+} from "../utils/constants";
+import { analyzeTimelines } from "./utils/analyzeTimelines";
+import { AnalyzeOutput } from "./output/analyzeOutput";
+import { AnalyzeOptions } from "../cli/commands/analyzeCommand";
 
-(async () => {
-  const TIMELINE_DIR = 'timeline';
-  const OUT_DIR_DIST = 'dist';
-  const OUT_DIR_DIFF = 'diff';
-  const ARCHIVE_DIR = 'archive';
-  const DATE_FORMAT = 'yyyyMMdd-HH:mm:ss';
+export const runAnalyze = async (args: AnalyzeOptions) => {
   const jsons = getTimelines(TIMELINE_DIR);
+  archiveFiles([OUT_DIR_DIFF, OUT_DIR_DIST], ARCHIVE_DIR);
+  const results = await analyzeTimelines(
+    jsons,
+    TIMELINE_DIR,
+    OUT_DIR_DIST,
+    OUT_DIR_DIFF
+  );
 
-  const results: ScenarioResult[] = [];
+  const analyzeOutput = new AnalyzeOutput(results);
+  analyzeOutput.outputConsole();
 
-  if (fs.existsSync(OUT_DIR_DIFF)){ 
-    await fs.move(OUT_DIR_DIFF, `${ARCHIVE_DIR}/${OUT_DIR_DIFF}/${format(new Date(), DATE_FORMAT)}`);
-  }
-  if (fs.existsSync(OUT_DIR_DIST)){ 
-    await fs.move(OUT_DIR_DIST, `${ARCHIVE_DIR}/${OUT_DIR_DIST}/${format(new Date(), DATE_FORMAT)}`);
-  }
-  const promises = jsons.map(async jsonPath => {
-    const scinarioName = path.dirname(jsonPath).replace('timeline/', '');
-    const outDirDist = jsonPath
-      .replace(TIMELINE_DIR, OUT_DIR_DIST)
-      .replace(/\.json$/, '');
-    const outDirDiff = jsonPath
-      .replace(TIMELINE_DIR, OUT_DIR_DIFF)
-      .replace(/\.json$/, '');
-
-    const singleData = await analyzeJson(path.resolve(__dirname, `../../${jsonPath}`), outDirDist, outDirDiff);
-
-    const exists = results.find(result => result.name === scinarioName);
-    if (exists) {
-      exists.data.push(singleData);
+  if (!args["--output"] && !args.output) return;
+  const outputType = args["--output"] || args.output;
+  await analyzeOutput.createOutputDir();
+  switch (outputType) {
+    case "csv":
+      analyzeOutput.outputCsv();
+      break;
+    case "json":
+      analyzeOutput.outputJson();
+      break;
+    default:
       return;
-    }
-    results.push({
-      name: scinarioName,
-      data: [singleData],
-    });
-  });
-
-  await Promise.all(promises);
-
-  outputResuts(results);
-  const csv = await convertToCSV(results);
-  console.log(csv);
-
-})();
+  }
+};

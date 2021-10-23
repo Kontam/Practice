@@ -31,3 +31,9 @@ export type Command =  {
   helpText: string;
 }
 
+export type ConfigType = {[key:string]: "string" | "number"}
+
+export type CliConfig = {
+  output: "csv" | "json",
+  times: number,
+}

@@ -7,6 +7,36 @@ function asyncFunc(num: number) {
   });
 }
 
+async function syncronize(asyncFuncs: Array<() => Promise<any>>) {
+  /* エラー　返り値がIteratorプロトコルではない
+  const asyncIterable = {
+    [Symbol.asyncIterator]() {
+      return {
+        i: 0,
+        next() {
+          if (this.i < asyncFuncs.length -1) {
+            return asyncFuncs[this.i]();
+          }
+          return Promise.resolve();
+        }
+      }
+    }
+  }
+ */
+  const asyncGenerator = async function* asyncGenerator() {
+    let i=0;
+
+    while (i<asyncFuncs.length) {
+      yield asyncFuncs[i]();
+      i++;
+    }
+  }
+
+  for await (let result of asyncGenerator()) {
+    console.log("done", result);
+  }
+}
+
 (async function() {
   // この辺でfor await ofを試す
   console.log(await asyncFunc(1));
@@ -43,4 +73,6 @@ function asyncFunc(num: number) {
   for await (let num of asyncIterable) {
     console.log("asyncIterable", num);
   }
+
+  await syncronize(asyncFuncs);
 })();

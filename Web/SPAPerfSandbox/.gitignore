@@ -3,4 +3,8 @@ diff
 archive
 timeline/**/*.json
 node_modules
+lib
+scenario
+*.json
+*.csv
 .DS_Store
