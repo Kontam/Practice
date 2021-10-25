@@ -1,5 +1,5 @@
 
-async function SyncWithGenerator(asyncFuncs: Array<() => Promise<any>>) {
+export async function syncWithGenerator(asyncFuncs: Array<() => Promise<any>>) {
   const asyncGenerator = async function* asyncGenerator() {
     let i=0;
 
