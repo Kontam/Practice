@@ -7,9 +7,9 @@ export async function syncWithObject(asyncFuncs: Array<() => Promise<any>>) {
         async next() {
           if (this.i < asyncFuncs.length -1) {
             this.i+=1;
-            return Promise.resolve({done: false, value: await asyncFuncs[this.i]()});
+            return {done: false, value: await asyncFuncs[this.i]()};
           }
-          return Promise.resolve({done: true, value: undefined});
+          return {done: true, value: undefined};
         }
       }
     }
