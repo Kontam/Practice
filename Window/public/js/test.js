@@ -1,5 +1,5 @@
 
-(function() {
+function() {
   const button = document.getElementById("test");
   if (!button) return console.error("no button");
 
