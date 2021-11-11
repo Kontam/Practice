@@ -5,6 +5,8 @@ function main() {
   //program.option('-d, --dublle', 'output extra');
   //program.option('-t, --test', 'testing default value', 'default');
 
+  program.version('0.0.1');
+
   program.command('echo <st>')
   .option('-d, --dublle', 'output extra')
   .description('say something')
