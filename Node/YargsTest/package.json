@@ -1,0 +1,21 @@
+{
+  "name": "YargsTest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "kontam <tehayan0111@gmail.com> (https://github.com/Kontam)",
+  "license": "ISC",
+  "dependencies": {
+    "yargs": "^17.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "^16.11.7",
+    "@types/yargs": "^17.0.5",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.4.4"
+  }
+}
