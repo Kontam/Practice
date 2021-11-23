@@ -1,5 +1,3 @@
-declare const chrome:any;
-
 function saveConfig() {
   const apiKeyField = document.getElementById("APIKey");
   if (!apiKeyField) return console.error("form not found");
@@ -12,7 +10,7 @@ function saveConfig() {
 function restoreConfig() {
   const apiKey = document.getElementById("APIKey");
   chrome.storage.local.get({
-    apiKey
+    apiKey: ""
   }, (values: any) => {
     if(!apiKey) return console.error("no form");
     (apiKey as HTMLInputElement).value = values.apiKey;
