@@ -1,0 +1,20 @@
+{
+  "name": "Sample",
+  "version": "1.0.0",
+  "manifest_version": 2,
+  "description": "Sample Chrome Extension",
+  "browser_action": {
+    "default_title": "default_title",
+    "default_popup": "dist/html/popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://konkonta.com/*"],
+      "js": ["dist/index.js"]
+    }
+  ],
+"options_ui": {
+  "chrome_style":false,
+  "page": "dist/html/config.html"
+}
+}
