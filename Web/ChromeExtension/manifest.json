@@ -16,5 +16,6 @@
 "options_ui": {
   "chrome_style":false,
   "page": "dist/html/config.html"
-}
+ },
+ "permissions": ["storage"]
 }
