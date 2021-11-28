@@ -1,16 +1,8 @@
-import { useLoaderData } from "remix";
+import { Link, useLoaderData } from "remix";
+import { getPosts } from "~/post";
 
 export let loader = () => {
-  return [
-    {
-      slug: "my-first-post",
-      title: "My First Post",
-    },
-    {
-      slug: "90s-mixtape",
-      title: "A Mixtape I Made Just For You"
-    }
-  ]
+  return getPosts();
 }
 
 export default function Posts() {
@@ -19,6 +11,11 @@ export default function Posts() {
 	return (
 		<div>
 			<h1>Posts Knat</h1>
+      {posts.map((post: any) => (
+          <li key={post.slug}>
+            <Link to={post.slug}>{post.title}</Link>
+          </li>
+        ))}
 		</div>
 	)
 }
