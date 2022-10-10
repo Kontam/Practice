@@ -5,6 +5,8 @@ export type Todo = {
 	name: string,
 }
 
+// TODO: https://randomuser.me/を使ってもいい
+
 const todoState = atom({
 	key: 'TodoState',
 	default: [{
