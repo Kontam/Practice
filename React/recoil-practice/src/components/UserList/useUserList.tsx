@@ -1,4 +1,4 @@
-import { selector, useRecoilValue } from "recoil";
+import { atom, selector, useRecoilState, useRecoilValue, useRecoilValueLoadable } from "recoil";
 
 export type UserAPIResponse = {
 	info: any
@@ -26,19 +26,25 @@ export type User = {
 	},
 }
 
-	const fetchUsers = async () => {
-		const result: UserAPIResponse = await (await fetch("https://randomuser.me/api/?results=10", { method: "GET"})).json();
+	const fetchUsers = async (count: number) => {
+		const result: UserAPIResponse = await (await fetch(`https://randomuser.me/api/?results=${count}`, { method: "GET"})).json();
 		return result.results;
 	}
+
+	const countState = atom({
+		key: "UserCount",
+		default: 0,
+	})
 
 	const usersQuery = selector({
 		key: "Users",
 		get: async ({get}) => {
-			return await fetchUsers()
+			return await fetchUsers(get(countState))
 		}
 	})
 
 export function useUserList() {
 	const users = useRecoilValue(usersQuery);
-	return {onClick: fetchUsers, users }
+	const [count, setCount] = useRecoilState(countState);
+	return {onPlusClick: () => setCount((oldCount) => oldCount + 1), users }
 }
