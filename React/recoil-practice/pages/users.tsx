@@ -1,9 +1,12 @@
 import { NextPage } from "next";
+import React from "react";
 import { UserList } from "../src/components/UserList";
 
 const Users: NextPage = () => {
 	return (
-		<UserList />
+		<React.Suspense fallback={<h1>fallback</h1>}>
+			<UserList />
+		</React.Suspense>
 	)
 }
 
