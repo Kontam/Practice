@@ -1,4 +1,8 @@
+import { InferGetServerSidePropsType } from "next";
+import { useEffect } from "react";
 import { atom, selector, useRecoilState, useRecoilValue, useRecoilValueLoadable } from "recoil";
+import { getServerSideProps } from "../../../pages/users";
+import { countState } from "../UserListAsync/useUserList";
 
 export type UserAPIResponse = {
 	info: any
@@ -26,25 +30,27 @@ export type User = {
 	},
 }
 
-	const fetchUsers = async (count: number) => {
-		const result: UserAPIResponse = await (await fetch(`https://randomuser.me/api/?results=${count}`, { method: "GET"})).json();
-		return result.results;
-	}
 
-	const countState = atom({
-		key: "UserCount",
-		default: 0,
+	export const usersState = atom<User[]>({
+		key: "UsersGSSP",
+		default: [],
 	})
 
-	const usersQuery = selector({
-		key: "Users",
-		get: async ({get}) => {
-			return await fetchUsers(get(countState))
+	export const usersSelector = selector({
+		key: "CountedUsers",
+		get: ({get}) => {
+			const count = get(countState);
+			return get(usersState).slice(0,count);
 		}
 	})
 
-export function useUserList() {
-	const users = useRecoilValue(usersQuery);
+
+export function useUserList(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
+	const [ allUsers, setAllUsers ] = useRecoilState(usersState);
+	useEffect(() => {
+		setAllUsers(props.data);
+	})
+	const users = useRecoilValue(usersSelector);
 	const [count, setCount] = useRecoilState(countState);
 	return {onPlusClick: () => setCount((oldCount) => oldCount + 1), users }
 }

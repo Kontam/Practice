@@ -1,13 +1,19 @@
-import { NextPage } from "next";
+import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from "next";
 import React from "react";
 import { UserList } from "../src/components/UserList";
+import { UserAPIResponse } from "../src/components/UserList/useUserList";
 
-const Users: NextPage = () => {
+const Users = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => {
 	return (
-		<React.Suspense fallback={<h1>fallback</h1>}>
-			<UserList />
-		</React.Suspense>
+			<UserList {...props}/>
 	)
+}
+
+export async function getServerSideProps() {
+	const result: UserAPIResponse = await (await fetch(`https://randomuser.me/api/?results=100`, { method: "GET"})).json();
+	return {
+		props: { data: result.results}
+	}
 }
 
 export default Users;

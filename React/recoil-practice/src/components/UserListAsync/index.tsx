@@ -1,9 +1,7 @@
-import { InferGetServerSidePropsType } from "next";
-import { getServerSideProps } from "../../../pages/users";
 import { useUserList } from "./useUserList";
 
-export function UserList(props: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const { onPlusClick, users } = useUserList(props);
+export function UserList() {
+  const { onPlusClick, users } = useUserList();
   return (
     <div>
       <button type="button" onClick={onPlusClick}>
