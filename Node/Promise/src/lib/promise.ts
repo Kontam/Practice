@@ -35,3 +35,7 @@ export function Promise(fn: () => void) {
     }
   }
 }
+
+
+// TODO: 最低限, Promiseをnewしてthenを書いて解決するところを目指す
+// Promise.prototype.then = 
