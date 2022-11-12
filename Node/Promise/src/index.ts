@@ -1,1 +1,3 @@
-console.log("test");
+import { Promise } from "./lib/promise";
+
+const x = Promise(() => {});
