@@ -1,9 +1,13 @@
 import { NextPage } from "next";
+import { Suspense } from "react";
+import Loading from "./loading";
 
 export const Todos: NextPage = () => {
   return (
     <main>
-      <h1>Todos</h1>
+      <Suspense fallback={<Loading />}>
+        <h1>Todos</h1>
+      </Suspense>
     </main>
   );
 };
