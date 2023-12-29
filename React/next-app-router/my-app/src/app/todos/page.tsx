@@ -1,12 +1,13 @@
-import { NextPage } from "next";
+import { TodoList } from "@/components/TodoList/todoList";
 import { Suspense } from "react";
+import { Todo } from "./list/route";
 import Loading from "./loading";
 
-export const Todos: NextPage = () => {
+export const Todos = () => {
   return (
     <main>
       <Suspense fallback={<Loading />}>
-        <h1>Todos</h1>
+        <TodoList />
       </Suspense>
     </main>
   );
