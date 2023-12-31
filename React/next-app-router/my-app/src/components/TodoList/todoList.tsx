@@ -1,8 +1,10 @@
 import { Todo } from "@/app/todos/list/route";
 
 export const TodoList = async () => {
-  const res = await fetch('http://localhost:3000/todos/list')
+  console.log(process.env)
+  const res = await fetch(process.env.TODO_API || "")
   const data = await res.json() as Todo[];
+  console.log(data[0], "TodoList");
   if (!Array.isArray) return <div>error!</div>
 
   return (

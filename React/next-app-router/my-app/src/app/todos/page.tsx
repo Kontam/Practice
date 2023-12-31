@@ -13,7 +13,7 @@ export const Todos = () => {
       done: false,
     };
     console.log("server acitons", body);
-    fetch("http://localhost:3000/todos/list", {
+    fetch(process.env.TODO_API || "", {
       method: "POST",
       body: JSON.stringify(body),
     });
