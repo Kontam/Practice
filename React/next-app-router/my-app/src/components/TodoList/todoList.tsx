@@ -1,4 +1,5 @@
 import { Todo } from "@/app/todos/list/route";
+import Link from "next/link";
 
 export const TodoList = async () => {
   console.log(process.env)
@@ -11,7 +12,7 @@ export const TodoList = async () => {
     <ul>
       {data.map((todo) => (
         <li key={todo.id}>
-          <p>{todo.name}</p>
+          <Link href="/todoDetail">{todo.name}</Link>
           <input type="checkbox" defaultChecked={todo.done} />
         </li>
       ))}
