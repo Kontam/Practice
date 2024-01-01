@@ -2,7 +2,7 @@
 app routerの練習
 
 ### 次にやること
-- AWSのGET, POSTがとりあえずできたのでCORSにならない確認をする
+- なんかPararel route試したらスタックした　スタッシュしてある
 
 ### 外部接続
 - AWS lambda
