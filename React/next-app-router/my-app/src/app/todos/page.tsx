@@ -1,5 +1,6 @@
 import { TodoForm } from "@/components/TodoForm";
 import { TodoList } from "@/components/TodoList/todoList";
+import Link from "next/link";
 import { Suspense } from "react";
 import { Todo } from "./list/route";
 import Loading from "./loading";
@@ -25,6 +26,7 @@ export const Todos = () => {
       <Suspense fallback={<Loading />}>
         <TodoList />
       </Suspense>
+      <link href="/todos/auth">Link to /todos/auth</link>
     </main>
   );
 };
