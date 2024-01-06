@@ -7,7 +7,7 @@ import Loading from "./loading";
 
 export const Todos = () => {
   const create = async (todoName: string) => {
-    'use server'
+    "use server";
     const body: Todo = {
       name: todoName,
       id: new Date().toString(),
@@ -21,13 +21,9 @@ export const Todos = () => {
     return body;
   };
   return (
-    <main>
-      <TodoForm create={create}/>
-      <Suspense fallback={<Loading />}>
-        <TodoList />
-      </Suspense>
-      <a href="/todos/selected/1">move To selected</a>
-    </main>
+    <>
+      <TodoForm create={create} />
+    </>
   );
 };
 
