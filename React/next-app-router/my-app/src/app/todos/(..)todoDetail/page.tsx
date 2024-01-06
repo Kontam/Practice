@@ -1,6 +1,9 @@
+import DetailModal from "@/components/client/DetailModal";
 
 export const TodoDetailIntercepted = () => {
-	return <h1>TodoDetailIntercepted</h1>
-}
+  return (
+		<DetailModal />
+   );
+};
 
 export default TodoDetailIntercepted;
