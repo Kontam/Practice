@@ -26,7 +26,7 @@ export const Todos = () => {
       <Suspense fallback={<Loading />}>
         <TodoList />
       </Suspense>
-      <link href="/todos/auth">Link to /todos/auth</link>
+      <a href="/todos/selected/1">move To selected</a>
     </main>
   );
 };
