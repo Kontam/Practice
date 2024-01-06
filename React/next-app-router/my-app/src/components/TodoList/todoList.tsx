@@ -1,5 +1,6 @@
 import { Todo } from "@/app/todos/list/route";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 type Props = {
   selected?: string;
@@ -18,12 +19,17 @@ export const TodoList = async (props: Props) => {
         <li key={todo.id}>
           <Link href={`/todos/selected/${todo.id}`}>
             {props.selected === todo.id ? (
-              <strong>{todo.name}</strong>
+              <>
+                <strong>{todo.name}</strong>
+              </>
             ) : (
               todo.name
             )}
           </Link>
           <input type="checkbox" defaultChecked={todo.done} />
+          <button type="button">
+            <Link href={`/todoDetail`}>detail</Link>
+          </button>
         </li>
       ))}
     </ul>
