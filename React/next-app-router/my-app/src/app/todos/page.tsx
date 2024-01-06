@@ -1,9 +1,5 @@
 import { TodoForm } from "@/components/TodoForm";
-import { TodoList } from "@/components/TodoList/todoList";
-import Link from "next/link";
-import { Suspense } from "react";
 import { Todo } from "./list/route";
-import Loading from "./loading";
 
 export const Todos = () => {
   const create = async (todoName: string) => {
